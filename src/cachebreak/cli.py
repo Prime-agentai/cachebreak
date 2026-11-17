@@ -19,6 +19,9 @@ from .report import (money, num, render_list, render_show, render_summary, repor
 from .transcript import load_session
 
 
+COMMANDS = frozenset({"list", "show", "summary", "check"})
+
+
 def parse_since(value: str | None) -> datetime | None:
     if not value:
         return None
@@ -86,9 +89,11 @@ def _report(path: Path, args: argparse.Namespace, top: int = 10) -> Report:
 
 def main(argv: Sequence[str] | None = None) -> int:
     parser = _build_parser()
-    args = parser.parse_args(argv)
-    if args.cmd is None:
-        args = parser.parse_args(["list", *(argv if argv is not None else sys.argv[1:])])
+    raw = list(argv if argv is not None else sys.argv[1:])
+    # No subcommand means "list", including list-only flags: `cachebreak -n 5 --since 1d`.
+    if not COMMANDS & set(raw) and not {"-h", "--help", "--version"} & set(raw):
+        raw.insert(0, "list")
+    args = parser.parse_args(raw)
     root = projects_root(args.root)
     st = style_for(sys.stdout, args.no_color)
     try:

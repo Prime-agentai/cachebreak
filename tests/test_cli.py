@@ -34,6 +34,8 @@ def test_default_command_lists_sessions(tmp_path: Path,
     code, out = run(capsys, "--root", str(root), "--no-color")
     assert code == 0
     assert "aaaa1111" in out and "bbbb2222" in out
+    code, out = run(capsys, "--root", str(root), "-n", "1", "--no-color")  # list-only flag
+    assert code == 0 and len(out.strip().splitlines()) == 2
     code, out = run(capsys, "list", "--root", str(root), "--project", "good", "--json")
     data = json.loads(out)
     assert [d["session_id"][:8] for d in data] == ["aaaa1111"]

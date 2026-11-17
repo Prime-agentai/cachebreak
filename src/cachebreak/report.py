@@ -140,7 +140,7 @@ def render_list(reports: list[Report], st: Style) -> str:
         brk = str(len(r.breaks))
         out.append(f"{r.session.session_id[:8]:<10} {_when(r):<17} {r.requests:>5} "
                    f"{pct(r.hit_rate):>5} {(st.red(f'{brk:>6}') if r.breaks else f'{brk:>6}')} "
-                   f"{money(r.break_usd):>9} {money(r.total_usd):>9}  {_project(r)}")
+                   f"{(money(r.break_usd) if r.breaks else '-'):>9} {money(r.total_usd):>9}  {_project(r)}")
     return "\n".join(out)
 
 
