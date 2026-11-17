@@ -1,0 +1,23 @@
+cachebreak  0e5a3c1d-demo-4c1b-9b57-5e55e5e55e55
+  /home/dev/shop-api  ·  2026-11-17 10:48  ·  evidence: request records
+  8 requests (main 8)
+
+Where the prompt tokens went
+  cache read       337k   hit rate 44%
+  cache write      429k   (1h 0, 5m 429k)
+  uncached           24   output 800
+  API-equivalent cost $1.40; re-reading cached context is 3% of it.
+
+Cache breaks: 3  (extra cost $1.03, 73% of the session)
+10:47:10  ttl-expired              re-wrote 107k tokens (kept 0)  +$0.257  [inferred]
+          ttl-expired: idle 47m02s > 5m00s TTL
+10:47:52  system-or-tools-changed  re-wrote 104k tokens (kept 3.1k)  +$0.250  [proven]
+          system-or-tools-changed: tools added: mcp__linear__create_issue
+10:48:24  model-switch             re-wrote 108k tokens (kept 0)  +$0.520  [proven]
+          model-switch: claude-sonnet-5-5 -> claude-opus-5-5
+
+Most expensive context (estimated)
+    $0.232     70k tok ×   6 later reads  Read package-lock.json
+    $0.039     12k tok ×   5 later reads  Bash npm test -- --reporter=verbose
+
+Dollars are API list prices as of 2026-11-17 (a proxy for usage-limit drain).

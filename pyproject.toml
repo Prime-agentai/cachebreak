@@ -1,0 +1,51 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cachebreak"
+version = "0.1.0"
+description = "Find every prompt-cache break in your Claude Code sessions, prove what caused it, and price it. Local transcripts only, zero dependencies."
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.11"
+authors = [{ name = "Prime-agentai" }]
+keywords = ["claude-code", "prompt-caching", "anthropic", "tokens", "usage-limits", "cost", "ai-agents", "observability", "llm"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Environment :: Console",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Topic :: Software Development",
+  "Typing :: Typed",
+]
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest>=7", "mypy>=1.8"]
+
+[project.scripts]
+cachebreak = "cachebreak.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/Prime-agentai/cachebreak"
+Issues = "https://github.com/Prime-agentai/cachebreak/issues"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+cachebreak = ["py.typed"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src", "tests"]
+
+[tool.mypy]
+strict = true
+files = ["src"]
